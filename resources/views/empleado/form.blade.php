@@ -1,4 +1,4 @@
-formulario que tiene los datos de empleados
+    <h1>{{$accion}} Empleado</h1>
     @csrf
     <label for="nombre_ep">Nombre:</label>
     <input type="text" name="nombre_ep" id="nombre_ep" placeholder="Ingrese su Nombre" value="{{isset($empleado->nombre_ep) ? $empleado->nombre_ep :'' }}">
@@ -20,6 +20,7 @@ formulario que tiene los datos de empleados
     <br>
     <input type="file" name="Foto" id="Foto" placeholder="Ingrese su Foto" value="">
     <br>
-    <input type="submit" value="Enviar">
-
+    <input type="submit" value="{{$accion}}">
+    <br>
+    <a href="{{url('empleado')}}">Regresar</a>
 

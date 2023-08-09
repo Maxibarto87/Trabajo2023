@@ -1,4 +1,9 @@
-mostrar vista de empleado
+<a href="{{url('empleado/create')}}">Crear nuevo empleado</a>
+<br>
+@if (Session::has('mensaje'))
+<p>{{ Session::get('mensaje') }}</p>
+
+@endif
 <table>
     <thead>
         <tr>
