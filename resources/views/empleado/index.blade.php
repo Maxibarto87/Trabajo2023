@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
 <a href="{{url('empleado/create')}}">Crear nuevo empleado</a>
 <br>
 @if (Session::has('mensaje'))
@@ -40,3 +44,5 @@
             </tr>
             @endforeach
         </tbody>
+</div>
+@endsection
