@@ -60,3 +60,7 @@ Auth::routes(['register' => false]);
 
 // Deshabilitar ruta de restablecimiento de contraseña
 Auth::routes(['reset' => false]);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
