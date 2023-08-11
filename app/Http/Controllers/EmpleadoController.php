@@ -37,6 +37,32 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
+
+        $reglas=[
+
+            'Nombre'=>'required|string|max:100',
+
+            'Apellido'=>'required|string|max:100',
+
+            'Correo'=>'required|email',
+
+            'Foto'=>'required|max:10000|mimes:jpeg,png,jpg,webp,gif',
+
+        ];
+
+$mensaje=[
+
+            'required'=>'El :attribute es requerido',
+
+            'Foto.required'=>'La foto es requerida',
+
+        ];
+
+
+
+$this->validate($request, $reglas, $mensaje);
+
+
         $datosEmpleados = $request->except('_token');
         if ($request->hasFile('Foto')) {
             $datosEmpleados['Foto'] = $request->file('Foto')->store('uploads', 'public');
@@ -65,7 +91,7 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::findOrFail($id);
         return view('empleado.edit', compact('empleado'));
-        
+
     }
 
     /**
@@ -78,6 +104,33 @@ class EmpleadoController extends Controller
     public function update(Request $request, $id)
 
     {
+        $validacion=[
+
+            'Nombre'=>'required|string|max:100',
+
+            'Apellido'=>'required|string|max:100',
+
+            'Correo'=>'required|email',
+
+        ];
+
+        $mensaje=[
+
+            'required'=>'El :attribute es requerido',
+
+        ];
+
+        if($request->hasFile('Foto')){
+
+            $validacion['Foto']=['required|max:10000|mimes:jpeg,png,jpg,webp,gif,'];
+
+            $mensaje['Foto.required']=['La foto es requerida'];
+
+
+
+        }
+
+        $this->validate($request, $validacion, $mensaje);
 
         $datosEmpleado = Request()->except(['_token', '_method']);
 
@@ -95,7 +148,7 @@ class EmpleadoController extends Controller
 
         $empleado = Empleado::findOrFail($id);
 
-        return view('empleado.edit', compact('empleado'));
+        return redirect('empleado')->with('mensaje','Empleado Actualizado');
     }
 
     /**

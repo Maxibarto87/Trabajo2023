@@ -3,10 +3,17 @@
 @section('content')
 
 <div class="container">
-<a  href="{{url('empleado/create')}}" class="btn btn-success">Crear nuevo empleado</a>
-<br>
-@if (Session::has('mensaje'))
-<p>{{ Session::get('mensaje') }}</p>
+
+    <a href="{{ url('empleado/create')}}" class="btn btn-success">Crear nuevo empleado</a>
+    <br>
+    @if (Session::has('mensaje'))
+
+    <div class="alert alert-success alert-dismissible" role="alert">
+    <p>{{ Session::get('mensaje') }}</p>
+    <button class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times</span>
+    </button>
+</div>
 
 @endif
 <table>
@@ -32,7 +39,7 @@
                 <td>{{ $empleado->email_ep }}</td>
                 <td>{{ $empleado->direccion_ep }}</td>
                 <td>{{ $empleado->telefono_ep }}</td>
-                <td><img class="img-thumbnail img-fluid" src="{{ asset('storage') . '/' . $empleado->Foto }}" width="80px"></td>
+                <td><img class="img-thumbnail img-fluid" src="{{ isset($empleado->Foto) ? asset('storage/' . $empleado->Foto) : asset('storage/' . old('Foto')) }}" width="80px"></td>
                 <td>
                     <a href="{{url('/empleado/' . $empleado->id . '/edit')}}" class="btn btn-warning">Editar</a>
                     |
@@ -45,5 +52,7 @@
             </tr>
             @endforeach
         </tbody>
+        </table>
+        {!! $empleados->links() !!}
 </div>
 @endsection
